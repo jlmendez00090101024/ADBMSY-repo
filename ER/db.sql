@@ -1,0 +1,23 @@
+-- SCHOOL LIBRARY DATABASE
+-- Complete DDL Script
+
+CREATE DATABASE IF NOT EXISTS SchoolLibrary;
+USE SchoolLibrary;
+
+-- 1. CATEGORY
+CREATE TABLE Category (
+    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    CategoryName VARCHAR(50) NOT NULL UNIQUE,
+    Description TEXT
+) ENGINE=InnoDB;
+
+-- 2. STUDENT
+CREATE TABLE Student (
+    StudentID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Phone VARCHAR(20),
+    Address TEXT,
+    Grade VARCHAR(20) NOT NULL,
+    EnrollmentDate DATE NOT NULL DEFAULT (CURRENT_DATE)
+) ENGINE=InnoDB;

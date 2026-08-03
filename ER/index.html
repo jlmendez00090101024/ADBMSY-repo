@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Database System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Banner Header -->
+    <header>
+        <h1>University Database System</h1>
+        <p>Entity Relationships, 3NF Normalization & Data Query Views</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav>
+        <button class="tab-btn active" onclick="switchTab('er-diagram', this)">ER Diagram</button>
+        <button class="tab-btn" onclick="switchTab('normalized-schema', this)">Normalized Schema (3NF)</button>
+        <button class="tab-btn" onclick="switchTab('simple-queries', this)">Simple Queries</button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main>
+
+        <!-- TAB 1: ER DIAGRAM -->
+        <section id="er-diagram" class="tab-content active">
+            <div class="er-wrapper" id="erWrapper">
+                <!-- SVG Connector Canvas -->
+                <svg class="er-svg-overlay" id="erSvg"></svg>
+
+                <div class="er-grid">
+                    
+                    <!-- Department -->
+                    <div class="entity-card" id="e-department">
+                        <div class="entity-header">Department</div>
+                        <ul class="entity-attributes">
+                            <li><span>department_id</span> <span class="badge-pk">PK</span></li>
+                            <li><span>department_name</span></li>
+                            <li><span>office_location</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Professor -->
+                    <div class="entity-card" id="e-professor">
+                        <div class="entity-header">Professor</div>
+                        <ul class="entity-attributes">
+                            <li><span>professor_id</span> <span class="badge-pk">PK</span></li>
+                            <li><span>name</span></li>
+                            <li><span>salary</span></li>
+                            <li><span>email</span></li>
+                            <li><span>department_id</span> <span class="badge-fk">FK</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="entity-card" id="e-course">
+                        <div class="entity-header">Course</div>
+                        <ul class="entity-attributes">
+                            <li><span>course_id</span> <span class="badge-pk">PK</span></li>
+                            <li><span>course_code</span></li>
+                            <li><span>title</span></li>
+                            <li><span>credits</span></li>
+                            <li><span>department_id</span> <span class="badge-fk">FK</span></li>
+                            <li><span>professor_id</span> <span class="badge-fk">FK</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Student -->
+                    <div class="entity-card" id="e-student">
+                        <div class="entity-header">Student</div>
+                        <ul class="entity-attributes">
+                            <li><span>student_id</span> <span class="badge-pk">PK</span></li>
+                            <li><span>first_name</span></li>
+                            <li><span>last_name</span></li>
+                            <li><span>email</span></li>
+                            <li><span>major</span></li>
+                            <li><span>enrollment_year</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Enrollment -->
+                    <div class="entity-card" id="e-enrollment">
+                        <div class="entity-header">Enrollment</div>
+                        <ul class="entity-attributes">
+                            <li><span>enrollment_id</span> <span class="badge-pk">PK</span></li>
+                            <li><span>student_id</span> <span class="badge-fk">FK</span></li>
+                            <li><span>course_id</span> <span class="badge-fk">FK</span></li>
+                            <li><span>semester</span></li>
+                            <li><span>year</span></li>
+                            <li><span>grade</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: NORMALIZED SCHEMA -->
+        <section id="normalized-schema" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.4rem; color: var(--primary);">Third Normal Form (3NF) Schema</h2>
+            <div class="schema-grid">
+                
+                <!-- Student -->
+                <div class="schema-card">
+                    <div class="schema-title">STUDENT</div>
+                    <ul class="schema-fields">
+                        <li><strong>student_id</strong> (PK)</li>
+                        <li>first_name</li>
+                        <li>last_name</li>
+                        <li>email</li>
+                        <li>major</li>
+                        <li>enrollment_year</li>
+                    </ul>
+                </div>
+
+                <!-- Course -->
+                <div class="schema-card">
+                    <div class="schema-title">COURSE</div>
+                    <ul class="schema-fields">
+                        <li><strong>course_id</strong> (PK)</li>
+                        <li>course_code</li>
+                        <li>title</li>
+                        <li>credits</li>
+                        <li>department_id (FK)</li>
+                        <li>professor_id (FK)</li>
+                    </ul>
+                </div>
+
+                <!-- Enrollment -->
+                <div class="schema-card">
+                    <div class="schema-title">ENROLLMENT</div>
+                    <ul class="schema-fields">
+                        <li><strong>enrollment_id</strong> (PK)</li>
+                        <li>student_id (FK)</li>
+                        <li>course_id (FK)</li>
+                        <li>semester</li>
+                        <li>year</li>
+                        <li>grade</li>
+                    </ul>
+                </div>
+
+                <!-- Professor -->
+                <div class="schema-card">
+                    <div class="schema-title">PROFESSOR</div>
+                    <ul class="schema-fields">
+                        <li><strong>professor_id</strong> (PK)</li>
+                        <li>name</li>
+                        <li>salary</li>
+                        <li>email</li>
+                        <li>department_id (FK)</li>
+                    </ul>
+                </div>
+
+                <!-- Department -->
+                <div class="schema-card">
+                    <div class="schema-title">DEPARTMENT</div>
+                    <ul class="schema-fields">
+                        <li><strong>department_id</strong> (PK)</li>
+                        <li>department_name</li>
+                        <li>office_location</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 3: SIMPLE QUERIES -->
+        <section id="simple-queries" class="tab-content">
+            <div class="query-section">
+                <div class="query-header">
+                    <h3>Student Course Enrolment View</h3>
+                    <p>Displays consolidated records combining Student, Course, Instructor, and Grade information.</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Instructor</th>
+                                <th>Semester</th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alice Smith</td>
+                                <td>CS101</td>
+                                <td>Intro to Computer Science</td>
+                                <td>Dr. Alan Turing</td>
+                                <td>Fall 2025</td>
+                                <td><span class="grade-badge">A</span></td>
+                            </tr>
+                            <tr>
+                                <td>Bob Johnson</td>
+                                <td>MATH201</td>
+                                <td>Linear Algebra</td>
+                                <td>Dr. Katherine Johnson</td>
+                                <td>Fall 2025</td>
+                                <td><span class="grade-badge">A-</span></td>
+                            </tr>
+                            <tr>
+                                <td>Charlie Brown</td>
+                                <td>CS101</td>
+                                <td>Intro to Computer Science</td>
+                                <td>Dr. Alan Turing</td>
+                                <td>Fall 2025</td>
+                                <td><span class="grade-badge">B+</span></td>
+                            </tr>
+                            <tr>
+                                <td>Diana Prince</td>
+                                <td>PHYS301</td>
+                                <td>Quantum Mechanics</td>
+                                <td>Dr. Richard Feynman</td>
+                                <td>Spring 2026</td>
+                                <td><span class="grade-badge">A</span></td>
+                            </tr>
+                            <tr>
+                                <td>Evan Davis</td>
+                                <td>ENG102</td>
+                                <td>Academic Writing</td>
+                                <td>Dr. Maya Angelou</td>
+                                <td>Spring 2026</td>
+                                <td><span class="grade-badge">B</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
